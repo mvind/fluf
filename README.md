@@ -4,8 +4,13 @@ This is a hobby project im doing in late hours / early mornings when people norm
 ## TODO 
 - [x] Write a todo list (6/9/19)
 - [ ] MINIMAL VIABLE PRODUCT added (8/9/19) 
-  - test
-  - test 2
+  - **DATA/BACKEND**
+  - forex data
+  - gdp data
+  - **GO GUI**
+  - dynamic search field
+  - linechart
+  - table
 - [ ] Find R packages for finance data, look at geo-fred (7/9/19) not done 
 - [ ] Find out optimal data formatting for r data retrivival to golang front end
 - [ ] Find golang package which can compile r scripts 
