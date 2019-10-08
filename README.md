@@ -5,7 +5,7 @@ This is a hobby project im doing in late hours / early mornings when people norm
 - [x] Write a todo list (6/9/19)
 - [x] MINIMAL VIABLE PRODUCT added (8/9/19) 
   - **DATA/BACKEND**
-  - [ ]forex data
+  - [ ] forex data
   - [ ] gdp data
   - **GO GUI**
   - [ ]dynamic search field
