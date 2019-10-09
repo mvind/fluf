@@ -30,28 +30,41 @@ library("quantmod")
 
 # forex data --------------------------------------------------------------
 
-forexGetter <- function(TICKER = "USD/JPY", TO = Sys.Date(), 
-                        FROM = "2005-06-02") {
+forexGetter <- function(TICKER = "USD/JPY", TO = "2014-06-02", 
+                        FROM = Sys.Date()) {
   # TO, FROM: CCYY - MM - DD 
   # TICKER: CURRENCY/CROSS  
   
   # Construct call dates for date range
-  time_diff <- as.integer(invisible(difftime(TO, FROM, units = "days")))
+  time_diff <- as.integer(invisible(difftime(FROM, TO, units = "days")))
   n_months <- time_diff %/% 179
   n_rest <- time_diff %% 179
   
   call_dates <- sapply(seq_len(n_months), function(i) as.Date(FROM) - i * 179, 
                        simplify = FALSE)
   
-  call_dates[length(call_dates) + 1] <- call_dates[length(call_dates)][[1]] - n_rest
+  n <- length(call_dates)
+  call_dates[n + 1] <- call_dates[n][[1]] - n_rest
+  
+  out <- vector("list", n + 1)
+  for(i in seq(from = 2, to = n + 1)) {
+    tmp_from <- call_dates[[i + 1]]
+    tmp_to <- call_dates[[i]]
+    
+    tmp_data <- new.env() 
+    
+    
+    if(i < 2) {
+      out[[1]]
+    }
+  }
   
   data_out <- new.env()
-  quantmod::getFX(TICKER, FROM, TO, env = data_out)
-  return(data_out)
+#  quantmod::getFX(TICKER, FROM, TO, env = data_out)
+  return(call_dates)
 }
 
 library(xts)
-xs::to
 tick1 <- "USD/JPY"
 out <- forexGetter(tick1)
 Sys.Date() - 179 * (1:3)
@@ -63,9 +76,6 @@ sapply(seq_len(5), function(i) Sys.Date() - 179 * i, simplify = F)
 
 # gdp data ----------------------------------------------------------------
 
-
-
-a
 
 
 
