@@ -11,6 +11,9 @@ import(
 // run.Rserve() using the Rserve package ???
 // And then we run this file
 
+// Learn about type structures in golang
+// See the returned object 
+
 func main() {
   // p := "./p/p"
   // q := ".\\q\\q"
