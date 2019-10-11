@@ -2,6 +2,7 @@ package main
 
 import(
   "fmt"
+  // "path/filepath"
   "github.com/senseyeio/roger"
 
 )
@@ -11,24 +12,25 @@ import(
 // And then we run this file
 
 func main() {
+  // p := "./p/p"
+  // q := ".\\q\\q"
+  //
+  // fmt.Println(path.base("C:\\Users\\morte_000\\github\\"))
+  // WIN package root
+  // win_path := "C:\Users\morte_000\github\fluf\r_backend"
+  //
+  // fmt.Println(win_path)
   rClient, err := roger.NewRClient("127.0.0.1", 6311)
   if err != nil {
     fmt.Println("Failed to connect")
     return
   }
 
-  value, err := rClient.Eval("pi")
+  value, err := rClient.Eval("source(\"C:/Users/morte_000/github/fluf/r_backend/test123.R\")")
   if err != nil {
-    fmt.Println("Command failed: " + err.Error())
-  } else {
-    fmt.Println(value) // 3.141592653589793
+    fmt.Printf("Command failed: " + err.Error())
   }
 
-  helloWorld, _ := rClient.Eval("as.character('Hello World')")
-  fmt.Println(helloWorld) // Hello World
-
-  arrChan := rClient.Evaluate("Sys.sleep(5); c(1,1)")
-  arrResponse := <-arrChan
-  arr, _ := arrResponse.GetResultObject()
-  fmt.Println(arr) // [1, 1]
+  n := len(value)
+  fmt.Println(n)
 }

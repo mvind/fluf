@@ -19,7 +19,7 @@ if(!"quantmod" %in% installed.packages()[, 1]) {
   install.packages("quantmod")
 }
 
-library("quantmod")
+library("quantmod")""
 
 # So far quantmod seems like best choice 
 # return object: 
@@ -47,30 +47,40 @@ forexGetter <- function(TICKER = "USD/JPY", TO = "2014-06-02",
   call_dates[n + 1] <- call_dates[n][[1]] - n_rest
   
   out <- vector("list", n + 1)
+  
+  env_name <- stringr::str_replace_all(TICKER, "/", "")
+  cat("envname: ", env_name, "\n")
   for(i in seq(from = 2, to = n + 1)) {
-    tmp_from <- call_dates[[i + 1]]
+    tmp_from <- call_dates[[i - 1]]
     tmp_to <- call_dates[[i]]
     
+    cat(tmp_from, tmp_to)
+    stop()
     tmp_data <- new.env() 
     
+    quantmod::getFX(TICKER, from = tmp_from, to = tmp_to, env = tmp_data)
     
-    if(i < 2) {
-      out[[1]]
-    }
+    #get(env_name, envir = tmp_data)
+    out[[i - 1]] <- get(env_name, envir = tmp_data)
+    cat(i - 1, " out of ", n, " \n")
+    rm(tmp_data)
+  
   }
   
-  data_out <- new.env()
-#  quantmod::getFX(TICKER, FROM, TO, env = data_out)
-  return(call_dates)
+  return(out)
 }
+
+res <- forexGetter(TO = "2018/06/02")
 
 library(xts)
 tick1 <- "USD/JPY"
-out <- forexGetter(tick1)
-Sys.Date() - 179 * (1:3)
-a <- invisible(difftime(Sys.Date(), "2005-06-02", units = "days"))
+test_env <- new.env()
+getFX(tick1, env = test_env)
 
-sapply(seq_len(5), function(i) Sys.Date() - 179 * i, simplify = F)
+
+. <-get("USDJPY", test_env)
+
+
 
 
 
