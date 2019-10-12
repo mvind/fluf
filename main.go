@@ -34,6 +34,5 @@ func main() {
     fmt.Printf("Command failed: " + err.Error())
   }
 
-  n := len(value)
-  fmt.Println(n)
+  
 }
