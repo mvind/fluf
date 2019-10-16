@@ -16,6 +16,9 @@ This is a hobby project im doing in late hours / early mornings when people norm
 - [ ] Find out optimal data formatting for r data retrivival to golang front end
 - [ ] Find golang package which can compile r scripts
 - [ ] **BUILD GO PACKAGE TO GET FINANCE DATA** (I.e setup version control and stuf like that)
-- [ ] Research termdash go package
-- [ ] Design layout and minimum viable design
+- [x] Research termdash go package
+- [x] Design layout and minimum viable design
 - [ ] ??? Unit testing idk
+
+## Sketches
+![Minimum viable design](fluf_rough.p?raw=true "Title")
