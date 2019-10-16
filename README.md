@@ -21,4 +21,4 @@ This is a hobby project im doing in late hours / early mornings when people norm
 - [ ] ??? Unit testing idk
 
 ## Sketches
-![Minimum viable design](fluf_rough.p?raw=true "Title")
+![Minimum viable design](fluf_rough.png?raw=true "Title")
