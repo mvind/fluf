@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mum4k/termdash/widgets/textinput"
+
 	"github.com/mum4k/termdash/widgets/text"
 
 	"github.com/mum4k/termdash/linestyle"
@@ -45,8 +47,6 @@ func clock(ctx context.Context, t *text.Text) {
 
 			date := now.Format("Jan 2 Mon")
 
-			//fmt.Println(date)
-
 			t.Reset() // First delete text buffer
 
 			if err := t.Write(parts[0] + spacer + parts[1] + " - " + date); err != nil {
@@ -57,6 +57,10 @@ func clock(ctx context.Context, t *text.Text) {
 			return
 		}
 	}
+}
+
+func pullData(query string) {
+	fmt.Println("Searching for: " + query)
 }
 
 const reDraw = 250 * time.Millisecond
@@ -70,14 +74,30 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 
-	clockCon, err := text.New()
+	clockW, err := text.New()
 	if err != nil {
 		panic(err)
 	}
-	//clockCon.Write("hej")
-	go clock(ctx, clockCon)
 
-	// Layout
+	//field := make(chan string)
+
+	searchW, err := textinput.New(
+		textinput.Label(""),
+		textinput.Border(linestyle.None),
+		textinput.PlaceHolder("SEARCH"),
+		textinput.OnSubmit(func(text string) error {
+			//field <- text
+			pullData(text)
+			return nil
+		}),
+		textinput.ClearOnSubmit(),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	go clock(ctx, clockW)
+
 	c, err := container.New(
 		t,
 		container.SplitHorizontal(
@@ -85,10 +105,11 @@ func main() {
 				container.SplitVertical(
 					container.Left( // search
 						container.Border(linestyle.Light),
+						container.PlaceWidget(searchW),
 					),
 					container.Right( // time and date
 						container.Border(linestyle.Light),
-						container.PlaceWidget(clockCon),
+						container.PlaceWidget(clockW),
 					),
 					container.SplitPercent(80),
 				),
